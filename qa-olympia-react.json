@@ -1,0 +1,213 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "olympia-server-$ENVIRONMENT",
+      "image": "110172377334.dkr.ecr.us-east-1.amazonaws.com/olympia-server:$ENVIRONMENT-VERSION",
+      "cpu": 256,
+      "memoryReservation": 1024,
+      "portMappings": [
+        {
+          "containerPort": 8001,
+          "hostPort": 8001,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "secrets": [
+        {
+          "name": "ENV_DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/$ENVIRONMENT/ENV_DB_PASSWORD"
+        },
+        {
+          "name": "ENV_RMQ_PASS",
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/$ENVIRONMENT/ENV_RMQ_PASS"
+        },
+        {
+          "name": "ENV_DATA_ENCRYPTION_KEY",
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/$ENVIRONMENT/ENV_DATA_ENCRYPTION_KEY"
+        },
+        {
+          "name": "ENV_SECRET_KEY_WEB",
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/$ENVIRONMENT/ENV_SECRET_KEY_WEB"
+        },
+        {
+          "name": "CHATBOT_CLIENT_SECRET",
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/$ENVIRONMENT/CHATBOT_CLIENT_SECRET"
+        }
+      ],
+      "ENVIRONMENT": [
+        {
+          "name": "AWS_REGION",
+          "value": "APP_ENV_AWS_REGION"
+        },
+        {
+          "name": "ENV_DB_HOST",
+          "value": "APP_ENV_DB_HOST"
+        },
+        {
+          "name": "ENV_DB_USER",
+          "value": "APP_ENV_DB_USER"
+        },
+        {
+          "name": "ENV_DB_NAME",
+          "value": "APP_ENV_DB_NAME"
+        },
+        {
+          "name": "ENV_DB_POOL_SIZE",
+          "value": "APP_ENV_DB_POOL_SIZE"
+        },
+        {
+          "name": "ENV_VERBOSE_ERROR",
+          "value": "APP_ENV_VERBOSE_ERROR"
+        },
+        {
+          "name": "ENV_PORT",
+          "value": "APP_ENV_PORT"
+        },
+        {
+          "name": "ENV_DOMAIN",
+          "value": "APP_ENV_DOMAIN"
+        },
+        {
+          "name": "ENV_RMQ_HOST",
+          "value": "APP_ENV_RMQ_HOST"
+        },
+        {
+          "name": "ENV_RMQ_PORT",
+          "value": "APP_ENV_RMQ_PORT"
+        },
+        {
+          "name": "ENV_RMQ_USER",
+          "value": "APP_ENV_RMQ_USER"
+        },
+        {
+          "name": "ENV_RABBITMQ_PROTOCOL",
+          "value": "APP_ENV_RABBITMQ_PROTOCOL"
+        },
+        {
+          "name": "ENV_PINPOINT_POOLID",
+          "value": "APP_ENV_PINPOINT_POOLID"
+        },
+        {
+          "name": "ENV_PINPOINT_REGION",
+          "value": "APP_ENV_PINPOINT_REGION"
+        },
+        {
+          "name": "ENV_PINPOINT_APPID",
+          "value": "APP_ENV_PINPOINT_APPID"
+        },
+        {
+          "name": "RUN_WITH_HTTPS",
+          "value": "APP_RUN_WITH_HTTPS"
+        },
+        {
+          "name": "SHOULD_NOT_REDACT",
+          "value": "APP_SHOULD_NOT_REDACT"
+        },
+        {
+          "name": "SHOULD_ENCRYPT",
+          "value": "APP_SHOULD_ENCRYPT"
+        },
+        {
+          "name": "SUPPORTED_API_VERSION",
+          "value": "APP_SUPPORTED_API_VERSION"
+        },
+        {
+          "name": "OLYMPIA_API_VERSION_POSITION",
+          "value": "APP_OLYMPIA_API_VERSION_POSITION"
+        },
+        {
+          "name": "ENV_HEALTH_CHECK_PORT",
+          "value": "APP_HEALTH_CHECK_PORT"
+        },
+        {
+          "name": "OLYMPIA_AUTH_CLIENT_IDS",
+          "value": "APP_OLYMPIA_AUTH_CLIENT_IDS"
+        },
+        {
+          "name": "CHATBOT_CLIENT_ID",
+          "value": "APP_CHATBOT_CLIENT_ID"
+        },
+        {
+          "name": "CHATBOT_URL",
+          "value": "APP_CHATBOT_URL"
+        },
+        {
+          "name": "ENV_SAML_CALLBACK_URL",
+          "value": "APP_ENV_SAML_CALLBACK_URL"
+        },
+        {
+          "name": "ENV_SAML_IDENTIFIER_FORMAT",
+          "value": "APP_ENV_SAML_IDENTIFIER_FORMAT"
+        },
+        {
+          "name": "ENV_SAML_AUDIENCE",
+          "value": "APP_ENV_SAML_AUDIENCE"
+        },
+        {
+          "name": "ENV_PINPOINT_POOLID",
+          "value": "APP_ENV_PINPOINT_POOLID"
+        },
+        {
+          "name": "ENV_PINPOINT_REGION",
+          "value": "APP_ENV_PINPOINT_REGION"
+        },
+        {
+          "name": "SUPPORTED_RESOURCES",
+          "value": "APP_SUPPORTED_RESOURCES"
+        },
+        {
+          "name": "GTMID",
+          "value": "APP_GTMID"
+        },
+        {
+          "name": "ENV_PINPOINT_APPID",
+          "value": "APP_ENV_PINPOINT_APPID"
+        },
+        {
+          "name": "CLOUD_FRONT_URL",
+          "value": "APP_CLOUD_FRONT_URL"
+        },
+        {
+          "name": "APP_URL",
+          "value": "APP_APP_URL"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "tmp_writable_space",
+          "containerPath": "/tmp"
+        }
+      ],
+      "volumesFrom": [],
+      "readonlyRootFilesystem": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/$ENVIRONMENT/olympia-server-$ENVIRONMENT",
+          "awslogs-region": "APP_ENV_AWS_REGION",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "family": "olympia-server-$ENVIRONMENT",
+  "executionRoleArn": "arn:aws:iam::APP_ENV_AWS_ACC_ID:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::APP_ENV_AWS_ACC_ID:role/ECS-Task-Role-for-$ENVIRONMENT",
+  "networkMode": "awsvpc",
+  "volumes": [
+    {
+      "name": "tmp_writable_space"
+    }
+  ],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "1024",
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": "PREFERRED_PLATFORM"
+  }
+}
