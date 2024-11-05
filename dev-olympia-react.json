@@ -1,8 +1,8 @@
 {
   "containerDefinitions": [
     {
-      "name": "olympia-server-DEV",
-      "image": "110172377334.dkr.ecr.us-east-1.amazonaws.com/olympia-server:DEV-VERSION",
+      "name": "olympia-server-dev",
+      "image": "110172377334.dkr.ecr.us-east-1.amazonaws.com/olympia-server:dev-VERSION",
       "cpu": 256,
       "memoryReservation": 1024,
       "portMappings": [
@@ -16,23 +16,23 @@
       "secrets": [
         {
           "name": "ENV_DB_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/DEV/ENV_DB_PASSWORD"
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/dev/ENV_DB_PASSWORD"
         },
         {
           "name": "ENV_RMQ_PASS",
-          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/DEV/ENV_RMQ_PASS"
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/dev/ENV_RMQ_PASS"
         },
         {
           "name": "ENV_DATA_ENCRYPTION_KEY",
-          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/DEV/ENV_DATA_ENCRYPTION_KEY"
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/dev/ENV_DATA_ENCRYPTION_KEY"
         },
         {
           "name": "ENV_SECRET_KEY_WEB",
-          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/DEV/ENV_SECRET_KEY_WEB"
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/dev/ENV_SECRET_KEY_WEB"
         },
         {
           "name": "CHATBOT_CLIENT_SECRET",
-          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/DEV/CHATBOT_CLIENT_SECRET"
+          "valueFrom": "arn:aws:secretsmanager:APP_ENV_AWS_REGION:APP_ENV_AWS_ACC_ID:secret:/dev/CHATBOT_CLIENT_SECRET"
         }
       ],
       "ENVIRONMENT": [
@@ -184,16 +184,16 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/DEV/olympia-server-DEV",
+          "awslogs-group": "/ecs/dev/olympia-server-dev",
           "awslogs-region": "APP_ENV_AWS_REGION",
           "awslogs-stream-prefix": "ecs"
         }
       }
     }
   ],
-  "family": "olympia-server-DEV",
+  "family": "olympia-server-dev",
   "executionRoleArn": "arn:aws:iam::APP_ENV_AWS_ACC_ID:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::APP_ENV_AWS_ACC_ID:role/ECS-Task-Role-for-DEV",
+  "taskRoleArn": "arn:aws:iam::APP_ENV_AWS_ACC_ID:role/ECS-Task-Role-for-dev",
   "networkMode": "awsvpc",
   "volumes": [
     {
